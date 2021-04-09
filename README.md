@@ -6,7 +6,7 @@
 - The first need [Go](https://golang.org/) installed
   
 
-- For default, need to create a `/go` folder and relative subfolders `/src`, `/bin` and `/pkg`, as follow:
+- Create directory for `GOPATH` setting, making a `/go` folder and relative subfolders `/src`, `/bin` and `/pkg`, as follow:
   ```
   /go
    |_ /src
@@ -15,9 +15,12 @@
   ```
   
 
-- The env variable `$GOPATH` is set to `$HOME/go` for default. You can customize `$GOPATH` by:
+- For `GOPATH` envirionment variable, add the following lines to the `~/.bashrc`. The `GOPATH` envirionment variable is set to `$HOME/go` for default. However, you can customize it by:
   
-    `export GOPATH=$HOME/<YOUR_PATH>/go`
+    ```sh
+    export GOPATH=$HOME/<YOUR_PATH>/go
+    export PATH=$GOPATH/bin:$PATH 
+    ```
   
   By command `go env` you can list all set env variables about Go.
   
@@ -45,6 +48,19 @@ Can open your project with your favorite IDE.
 
 ### VSCode
 
+After the installation, Launch VSCode.
+
+Open the Extensions Marketplace (Cmd+Shift+X), search Go and install it.
+
+![image](https://user-images.githubusercontent.com/48289901/114190603-c4e6f780-994b-11eb-81f6-296e8469a5cb.png)
+
+open the Command Palette (Cmd+Shift+P) and run the Go: Install/Update Tools command.
+
+![image](https://user-images.githubusercontent.com/48289901/114191135-5eaea480-994c-11eb-8613-e9d30620945c.png)
+
+Install all the Go extensions listed there.
+
+![image](https://user-images.githubusercontent.com/48289901/114191203-7423ce80-994c-11eb-9e97-75abfc5a94b5.png)
 
 
 ## Dependency

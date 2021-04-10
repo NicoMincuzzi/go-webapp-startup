@@ -10,5 +10,7 @@ func main() {
 	router.GET("/user/:name/*action", moreParams)
 	router.GET("/user", queryParams)
 
+	router.POST("/user", modelBindingValidation)
+
 	router.Run(":3030")
 }

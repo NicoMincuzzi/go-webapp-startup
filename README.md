@@ -174,4 +174,4 @@ Now if you visit `http://localhost:3030/status` in your web browser, you should 
 Make a pull request...
 
 ## License
-Distributed under MIT License, please see license file within the code for more details.
+Distributed under Apache-2.0 License, please see license file within the code for more details.

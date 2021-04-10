@@ -1,4 +1,5 @@
 # Web application startup: Goland
+[![CI](https://github.com/NicoMincuzzi/go-webapp-startup/actions/workflows/ci.yml/badge.svg)](https://github.com/NicoMincuzzi/go-webapp-startup/actions/workflows/ci.yml)
 ![Golang version](https://img.shields.io/badge/golang-1.16-9cf)
 ![GitHub repo size](https://img.shields.io/github/repo-size/NicoMincuzzi/go-webapp-startup)
 

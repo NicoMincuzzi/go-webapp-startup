@@ -8,6 +8,7 @@ func main() {
 	router.GET("/status", status)
 	router.GET("/user/:name", singleParam)
 	router.GET("/user/:name/*action", moreParams)
+	router.GET("/user", queryParams)
 
 	router.Run(":3030")
 }

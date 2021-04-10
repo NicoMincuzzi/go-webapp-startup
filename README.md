@@ -16,9 +16,9 @@
   ```
   
 
-- For `GOPATH` envirionment variable, add the following lines to the `~/.bashrc`. The `GOPATH` envirionment variable is set to `$HOME/go` for default. However, you can customize it by:
+- For `GOPATH` environment variable, add the following lines to the `~/.bashrc`. The `GOPATH` envirionment variable is set to `$HOME/go` for default. However, you can customize it by:
   
-    ```sh
+    ```shell
     export GOPATH=$HOME/<YOUR_PATH>/go
     export PATH=$GOPATH/bin:$PATH 
     ```
@@ -35,7 +35,7 @@
 
 - Let's make the project directory the root of a module by using `go mod init`:
 
-    ```sh
+    ```shell
     go mod init nicomincuzzi/go-webapp
     ```
 
@@ -47,7 +47,7 @@ Can open your project with your favorite IDE.
 
 ### Goland
 
-- One of the most famous IDE is GoLand IDE, in which you need to flag `Enable Go Modules Integration` in `Preferences... -> Go -> Go Modules `
+One of the most famous IDE is GoLand IDE, in which you need to flag `Enable Go Modules Integration` in `Preferences... -> Go -> Go Modules `
 
   ![Schermata 2021-03-30 alle 00 24 04](https://user-images.githubusercontent.com/48289901/112907559-5fdf0680-90ee-11eb-8129-5ea7ef657e4b.png)
 
@@ -82,7 +82,7 @@ It inserts package in go module (`go.mod` file) and packages in `go/pkg/mod`
 
 If you look at the `go.mod` file, you'll see it now contains this:
 
-  ```
+  ```go.mod
   module nicomincuzzi/go-webapp
   
   go 1.16
@@ -99,7 +99,7 @@ The `go.sum` file serves a similar function to `package-lock.json` for a Javascr
 
 Application dependencies (managed manually or by your favorite dependency management tool like the new built-in Go Modules feature). The `go mod vendor` command will create the `/vendor` directory for you. 
    
-    `go mod vendor`
+  `go mod vendor`
 
 ## Build and Run  
 
@@ -115,4 +115,56 @@ Application dependencies (managed manually or by your favorite dependency manage
 
 ## Creat a web application
 
-We're going to use [gin](https://github.com/gin-gonic/gin) for our web application, which is a lightweight web framework
+We're going to use [gin](https://github.com/gin-gonic/gin) for our web application, which is a lightweight web framework.
+
+Create a file called `main.go` containing this code:
+
+```go
+package main
+
+import "github.com/gin-gonic/gin"
+
+func main() {
+r := gin.Default()
+
+    r.GET("/status", func(c *gin.Context) {
+        c.String(200, "Healthy!")
+    })
+
+    r.Run(":3030")
+}
+```
+Let's break this down a little:
+```go
+r := gin.Default()
+```
+This creates a router object, r, using the built-in defaults that come with gin.
+
+Then, we assign a handler function to be called for any HTTP GET requests to the path /hello, and to return the string "Hello, World!" and a 200 (HTTP OK) status code:
+```go
+r.GET("/status", func(c *gin.Context) {
+c.String(200, "Healthy!")
+})
+```
+Finally, we start our webserver and tell it to listen on port 3000:
+```go
+r.Run(":3030")
+```
+To run this code, execute:
+```shell
+go run main.go
+```
+You should see output like this:
+```shell
+go: finding module for package github.com/gin-gonic/gin
+go: found github.com/gin-gonic/gin in github.com/gin-gonic/gin v1.6.3
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+- using env:   export GIN_MODE=release
+- using code:  gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /hello                    --> main.main.func1 (3 handlers)
+[GIN-debug] Listening and serving HTTP on :3030
+```
+Now if you visit `http://localhost:3030/status` in your web browser, you should see the message `"Healthy!"`

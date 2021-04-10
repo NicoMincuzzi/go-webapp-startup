@@ -5,7 +5,9 @@ import "github.com/gin-gonic/gin"
 func main() {
 	router := gin.Default()
 
-	router.GET("/ping", status)
+	router.GET("/status", status)
+	router.GET("/user/:name", singleParam)
+	router.GET("/user/:name/*action", moreParams)
 
 	router.Run(":3030")
 }

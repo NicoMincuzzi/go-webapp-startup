@@ -1,4 +1,5 @@
 # Web application startup: Goland
+[![CI](https://github.com/NicoMincuzzi/go-webapp-startup/actions/workflows/ci.yml/badge.svg)](https://github.com/NicoMincuzzi/go-webapp-startup/actions/workflows/ci.yml)
 ![Golang version](https://img.shields.io/badge/golang-1.16-9cf)
 ![GitHub repo size](https://img.shields.io/github/repo-size/NicoMincuzzi/go-webapp-startup)
 
@@ -117,6 +118,14 @@ Application dependencies (managed manually or by your favorite dependency manage
 
 We're going to use [gin](https://github.com/gin-gonic/gin) for our web application, which is a lightweight web framework.
 
+Let’s take a quick look at how a request is processed in Gin. The control flow for a typical web application, API server or a microservice looks as follows:
+
+```
+Request -> Route Parser -> [Optional Middleware] -> Route Handler -> [Optional Middleware] -> Response
+```
+
+When a request comes in, Gin first parses the route. If a matching route definition is found, Gin invokes the route handler and zero or more middleware in an order defined by the route definition.
+
 Create a file called `main.go` containing this code:
 
 ```go
@@ -168,3 +177,22 @@ go: found github.com/gin-gonic/gin in github.com/gin-gonic/gin v1.6.3
 [GIN-debug] Listening and serving HTTP on :3030
 ```
 Now if you visit `http://localhost:3030/status` in your web browser, you should see the message `"Healthy!"`
+
+### Middleware
+In the context of a Go web application, middleware is a piece of code that can be executed at any stage while handling an HTTP request. It is typically used to encapsulate common functionality that you want to apply to multiple routes. We can use middleware before and/or after an HTTP request is handled. Some common uses of middleware include authorization, validation, etc.
+
+If middleware is used before a request is handled, any changes it makes to the request will be available in the main route handler. This is handy if we want to implement some validations on certain requests. On the other hand, if the middleware is used after the route handler, it will have a response from the route handler. This can be used to modify the response from the route handler.
+
+Gin allows us to write middleware that implements some common functionality that needs to be shared while handling multiple routes. This keeps the codebase small, separates concerns and improves code maintainability.
+
+We want to ensure that some pages and actions, eg. creating an article, logging out, are available only to users who are logged in. We also want to ensure that some pages and actions, eg. registering, logging in, are available only to users who aren’t logged in.
+
+If we were to put this logic in every route, it would be quite tedious, repetitive and error-prone. Luckily, we can create middleware for each of these tasks and reuse them in specific routes.
+
+We will also create middleware that will be applied to all routes. This middleware (setUserStatus) will check whether a request is from an authenticated user or not. It will then set a flag that can be used in templates to modify the visibility of some of the menu links based on this flag.
+
+## How to Contribute
+Make a pull request...
+
+## License
+Distributed under Apache-2.0 License, please see license file within the code for more details.

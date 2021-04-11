@@ -118,6 +118,14 @@ Application dependencies (managed manually or by your favorite dependency manage
 
 We're going to use [gin](https://github.com/gin-gonic/gin) for our web application, which is a lightweight web framework.
 
+Let’s take a quick look at how a request is processed in Gin. The control flow for a typical web application, API server or a microservice looks as follows:
+
+```
+Request -> Route Parser -> [Optional Middleware] -> Route Handler -> [Optional Middleware] -> Response
+```
+
+When a request comes in, Gin first parses the route. If a matching route definition is found, Gin invokes the route handler and zero or more middleware in an order defined by the route definition. We will see how this is done when we take a look at the code in a later section.
+
 Create a file called `main.go` containing this code:
 
 ```go

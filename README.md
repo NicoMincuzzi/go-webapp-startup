@@ -124,7 +124,7 @@ Let’s take a quick look at how a request is processed in Gin. The control flow
 Request -> Route Parser -> [Optional Middleware] -> Route Handler -> [Optional Middleware] -> Response
 ```
 
-When a request comes in, Gin first parses the route. If a matching route definition is found, Gin invokes the route handler and zero or more middleware in an order defined by the route definition. We will see how this is done when we take a look at the code in a later section.
+When a request comes in, Gin first parses the route. If a matching route definition is found, Gin invokes the route handler and zero or more middleware in an order defined by the route definition.
 
 Create a file called `main.go` containing this code:
 

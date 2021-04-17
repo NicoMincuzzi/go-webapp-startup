@@ -42,6 +42,12 @@
 
   It's common practice to use your github username to keep your project names globally unique, and avoid name conflicts with any of your project dependencies, but you can use any name you like.
 
+- To add module requirements and sums:
+  
+  ```shell
+  go mod tidy
+  ```
+
 ## IDEs
 
 Can open your project with your favorite IDE.

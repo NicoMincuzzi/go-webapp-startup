@@ -5,14 +5,14 @@ import (
 	"net/http"
 )
 
-func SingleParam(c *gin.Context) {
+func singleParam(c *gin.Context) {
 	name := c.Param("name")
 	c.JSON(http.StatusOK, gin.H{
 		"name": name,
 	})
 }
 
-func MoreParams(c *gin.Context) {
+func moreParams(c *gin.Context) {
 	name := c.Param("name")
 	action := c.Param("action")
 	message := name + " is " + action

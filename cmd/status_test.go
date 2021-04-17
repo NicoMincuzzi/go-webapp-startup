@@ -1,9 +1,8 @@
-package test
+package main
 
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
-	"go-webapp/cmd"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -11,7 +10,7 @@ import (
 
 func TestStatus(t *testing.T) {
 	router := gin.Default()
-	router.GET("/status", main.Status)
+	router.GET("/status", status)
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/status", nil)

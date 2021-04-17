@@ -1,9 +1,8 @@
-package test
+package main
 
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
-	"go-webapp/cmd"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -11,7 +10,7 @@ import (
 
 func TestSingleParam(t *testing.T) {
 	router := gin.Default()
-	router.GET("/user/:name", main.SingleParam)
+	router.GET("/user/:name", singleParam)
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/user/buddy", nil)
@@ -23,7 +22,7 @@ func TestSingleParam(t *testing.T) {
 
 func TestMoreParams(t *testing.T) {
 	router := gin.Default()
-	router.GET("/user/:name/*action", main.MoreParams)
+	router.GET("/user/:name/*action", moreParams)
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/user/buddy/walk", nil)

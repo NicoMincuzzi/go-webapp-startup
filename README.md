@@ -110,6 +110,17 @@ Application dependencies (managed manually or by your favorite dependency manage
 
   `go build -o build/hello hello.go`
 
+- Testing
+  ```shell
+  go test -v
+  ```
+  Go provides cover tool (out of many built-in tools) to analyze coverage information of a test. We use this tool to accept our coverage profile and outputs an HTML file which contains the human-readable information about the test in a very interactive format.
+  ```shell
+  go test -cover
+  ```
+  ```shell
+  go test -cover -html=cover.txt -o cover.html
+  ```
 - Run project
 
   `go run .`

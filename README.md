@@ -102,7 +102,7 @@ Application dependencies (managed manually or by your favorite dependency manage
    
   `go mod vendor`
 
-## Build and Run  
+## Build, Testing and Run  
 
 - Build project
 
@@ -111,9 +111,39 @@ Application dependencies (managed manually or by your favorite dependency manage
   `go build -o build/hello hello.go`
 
 - Testing
+  
+  From your project’s root directory, run your first test:
+  
+  ```shell
+  go test
+  ```
+
+  You will receive the following output:
+  
+  ```shell
+  Output
+  PASS
+  ok      ./math 0.988s
+  ```
+
+  The `go test` subcommand only looks for files with the `_test.go` suffix. `go test` then scans those file(s) for special functions including `func TestXxx` and several others that we will cover in later steps. `go test` then generates a temporary main package that calls these functions in the proper way, builds and runs them, reports the results, and finally cleans everything up.
+
+  `go test` is probably sufficient for our little program, but there will be times when you’ll wish to see what tests are running and how long each takes. Adding the `-v` flag increases verbosity. Rerun your test with the new flag:
+  
   ```shell
   go test -v
   ```
+
+  You will see the following output:
+  
+  ```shell
+  Output
+  === RUN   TestAdd
+  --- PASS: TestAdd (0.00s)
+  PASS
+  ok      ./math 1.410s
+  ```
+  
   Go provides cover tool (out of many built-in tools) to analyze coverage information of a test. We use this tool to accept our coverage profile and outputs an HTML file which contains the human-readable information about the test in a very interactive format.
   ```shell
   go test -cover

@@ -5,18 +5,25 @@ import (
 	"net/http"
 )
 
+type User struct{
+	Name   string `json:"name"`
+	Action string `json:"action,omitempty"`
+}
+
 func singleParam(c *gin.Context) {
 	name := c.Param("name")
-	c.JSON(http.StatusOK, gin.H{
-		"name": name,
-	})
+
+	var user User
+	user.Name = name
+	c.JSON(http.StatusOK, user)
 }
 
 func moreParams(c *gin.Context) {
 	name := c.Param("name")
 	action := c.Param("action")
-	message := name + " is " + action
-	c.JSON(http.StatusOK, gin.H{
-		"message": message,
-	})
+
+	var user User
+	user.Name = name
+	user.Action = action
+	c.JSON(http.StatusOK, user)
 }

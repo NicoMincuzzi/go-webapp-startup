@@ -29,5 +29,5 @@ func TestMoreParams(t *testing.T) {
 	router.ServeHTTP(w, req)
 
 	assert.Equal(t, 200, w.Code)
-	assert.Equal(t, "{\"message\":\"buddy is /walk\"}", w.Body.String())
+	assert.Equal(t, "{\"name\":\"buddy\",\"action\":\"/walk\"}", w.Body.String())
 }

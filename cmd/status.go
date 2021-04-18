@@ -5,8 +5,11 @@ import (
 	"net/http"
 )
 
+var message struct {
+	Status string `json:"status"`
+}
+
 func status(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"status": "healthy",
-	})
+	message.Status = "healthy"
+	c.JSON(http.StatusOK, message)
 }

@@ -36,7 +36,7 @@
 
 - Let's make the project directory the root of a module by using `go mod init`:
 
-    ```shell
+    ```sh
     go mod init nicomincuzzi/go-webapp
     ```
 
@@ -44,7 +44,7 @@
 
 - To add module requirements and sums:
   
-  ```shell
+  ```sh
   go mod tidy
   ```
 
@@ -113,6 +113,8 @@ Application dependencies (managed manually or by your favorite dependency manage
 - Build project
 
   `go build`
+
+  or specifying the target folder:
 
   `go build -o build/hello hello.go`
 

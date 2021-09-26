@@ -1,23 +1,20 @@
+# https://docs.docker.com/language/golang/build-images/
 FROM golang:1.16.2-alpine3.13 AS builder
 
 WORKDIR /app
-COPY go.mod go.sum /app/
+COPY go.mod ./
+COPY go.sum ./
 
-## Add this go mod download command to pull in any dependencies
 RUN go mod download
 
-COPY ./cmd ./cmd
+COPY ./cmd/*.go ./
 
-# Unit tests
-#RUN CGO_ENABLED=0 go test -v
-
-RUN go build -o /build/ cmd/*.go
+RUN go build -o /go-webapp
 
 FROM alpine:3.13
 
-COPY --from=builder /build /bin/cmd
-WORKDIR /app
+COPY --from=builder /go-webapp /go-webapp
 
 EXPOSE 3030
 
-CMD ["./main"]
+CMD ["/go-webapp"]

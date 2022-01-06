@@ -1,10 +1,9 @@
-# https://docs.docker.com/language/golang/build-images/
 FROM golang:1.16.2-alpine3.13 AS builder
 
 WORKDIR /app
-COPY go.mod ./
-COPY go.sum ./
 
+# COPY go.mod, go.sum and download the dependencies
+COPY go.* ./
 RUN go mod download
 
 COPY ./cmd/*.go ./

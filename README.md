@@ -38,7 +38,7 @@
 - Let's make the project directory the root of a module by using `go mod init`:
 
     ```sh
-    go mod init nicomincuzzi/go-webapp
+    $ go mod init nicomincuzzi/go-webapp
     ```
 
   It's common practice to use your github username to keep your project names globally unique, and avoid name conflicts with any of your project dependencies, but you can use any name you like.
@@ -46,7 +46,7 @@
 - To add module requirements and sums:
   
   ```sh
-  go mod tidy
+  $ go mod tidy
   ```
 
 ## IDEs
@@ -79,12 +79,16 @@ Install all the Go extensions listed there.
 ## Dependency
 
 Use the below Go command to install package.
-  
-`go get -u github.com/<PACKAGE_PATH>`
+ 
+ ```sh 
+ $ go get -u github.com/<PACKAGE_PATH>
+ ```
     
 For example, install gin package:
-    
-`go get -u github.com/gin-gonic/gin`
+ 
+ ```sh
+ $ go get -u github.com/gin-gonic/gin
+ ```
   
 It inserts package in go module (`go.mod` file) and packages in `go/pkg/mod`
 
@@ -107,29 +111,35 @@ The `go.sum` file serves a similar function to `package-lock.json` for a Javascr
 
 Application dependencies (managed manually or by your favorite dependency management tool like the new built-in Go Modules feature). The `go mod vendor` command will create the `/vendor` directory for you. 
    
-  `go mod vendor`
+   ```sh
+   $ go mod vendor
+   ```
 
 ## Build, Testing and Run  
 
 - Build project
 
-  `go build`
+  ```sh
+  $ go build
+  ```
 
   or specifying the target folder:
 
-  `go build -o build/hello hello.go`
+  ```sh
+  $ go build -o build/hello hello.go
+  ```
 
 - Testing
   
   From your project’s root directory, run your first test:
   
-  ```shell
-  go test
+  ```sh
+  $ go test
   ```
 
   You will receive the following output:
   
-  ```shell
+  ```sh
   Output
   PASS
   ok      ./math 0.988s
@@ -139,13 +149,13 @@ Application dependencies (managed manually or by your favorite dependency manage
 
   `go test` is probably sufficient for our little program, but there will be times when you’ll wish to see what tests are running and how long each takes. Adding the `-v` flag increases verbosity. Rerun your test with the new flag:
   
-  ```shell
-  go test -v
+  ```sh
+  $ go test -v
   ```
 
   You will see the following output:
   
-  ```shell
+  ```sh
   Output
   === RUN   TestAdd
   --- PASS: TestAdd (0.00s)
@@ -154,15 +164,20 @@ Application dependencies (managed manually or by your favorite dependency manage
   ```
   
   Go provides cover tool (out of many built-in tools) to analyze coverage information of a test. We use this tool to accept our coverage profile and outputs an HTML file which contains the human-readable information about the test in a very interactive format.
-  ```shell
-  go test -cover
+  
+  ```sh
+  $ go test -cover
   ```
-  ```shell
-  go test -cover -html=cover.txt -o cover.html
+  
+  ```sh
+  $ go test -cover -html=cover.txt -o cover.html
   ```
+  
 - Run project
 
-  `go run .`
+  ```sh
+  $ go run .
+  ```
 
 ## Creat a web application
 
@@ -210,11 +225,11 @@ Finally, we start our webserver and tell it to listen on port 3000:
 r.Run(":3030")
 ```
 To run this code, execute:
-```shell
-go run main.go
+```sh
+$ go run main.go
 ```
 You should see output like this:
-```shell
+```sh
 go: finding module for package github.com/gin-gonic/gin
 go: found github.com/gin-gonic/gin in github.com/gin-gonic/gin v1.6.3
 [GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.

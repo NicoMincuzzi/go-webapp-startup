@@ -20,7 +20,7 @@
 
 - For `GOPATH` environment variable, add the following lines to the `~/.bashrc`. The `GOPATH` envirionment variable is set to `$HOME/go` for default. However, you can customize it by:
   
-    ```shell
+    ```groovy
     export GOPATH=$HOME/<YOUR_PATH>/go
     export PATH=$GOPATH/bin:$PATH 
     ```

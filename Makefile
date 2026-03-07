@@ -1,9 +1,9 @@
 GOCMD=go
 GOTEST=$(GOCMD) test
 GOVET=$(GOCMD) vet
-BINARY_NAME=example
+BINARY_NAME=go-webapp
 VERSION?=0.0.0
-SERVICE_PORT?=3000
+SERVICE_PORT?=3030
 DOCKER_REGISTRY?= #if set it should finished by /
 EXPORT_RESULT?=false # for CI please set EXPORT_RESULT to true
 
@@ -13,17 +13,19 @@ WHITE  := $(shell tput -Txterm setaf 7)
 CYAN   := $(shell tput -Txterm setaf 6)
 RESET  := $(shell tput -Txterm sgr0)
 
-.PHONY: all test build vendor docker-build docker-build-arm64
+.PHONY: all build run clean vendor watch test coverage vet lint lint-go lint-dockerfile lint-yaml docker-build docker-build-arm64 docker-release help
 
 all: help
 
 ## Build:
 build: ## Build your project and put the output binary in out/bin/
 	mkdir -p out/bin
-	GO111MODULE=on $(GOCMD) build -mod vendor -o out/bin/$(BINARY_NAME) .
+	GO111MODULE=on $(GOCMD) build -mod vendor -o out/bin/$(BINARY_NAME) ./cmd/*.go
+
+run: build ## Build and run the application
+	./out/bin/$(BINARY_NAME)
 
 clean: ## Remove build related file
-	rm -fr ./bin
 	rm -fr ./out
 	rm -f ./junit-report.xml checkstyle-report.xml ./coverage.xml ./profile.cov yamllint-checkstyle.xml
 
@@ -51,6 +53,9 @@ ifeq ($(EXPORT_RESULT), true)
 	gocov convert profile.cov | gocov-xml > coverage.xml
 endif
 
+vet: ## Run go vet on the project
+	$(GOVET) ./...
+
 ## Lint:
 lint: lint-go lint-dockerfile lint-yaml ## Run all available linters
 
@@ -72,7 +77,7 @@ ifeq ($(EXPORT_RESULT), true)
 	GO111MODULE=off go get -u github.com/thomaspoignant/yamllint-checkstyle
 	$(eval OUTPUT_OPTIONS = | tee /dev/tty | yamllint-checkstyle > yamllint-checkstyle.xml)
 endif
-	docker run --rm -it -v $(shell pwd):/data cytopia/yamllint -f parsable $(shell git ls-files '*.yml' '*.yaml') $(OUTPUT_OPTIONS)
+	docker run --rm -v $(shell pwd):/data cytopia/yamllint -f parsable $(shell git ls-files '*.yml' '*.yaml') $(OUTPUT_OPTIONS)
 
 ## Docker:
 docker-build: ## Use the dockerfile to build the container

@@ -13,7 +13,7 @@ WHITE  := $(shell tput -Txterm setaf 7)
 CYAN   := $(shell tput -Txterm setaf 6)
 RESET  := $(shell tput -Txterm sgr0)
 
-.PHONY: all test build vendor
+.PHONY: all test build vendor docker-build docker-build-arm64
 
 all: help
 
@@ -77,6 +77,9 @@ endif
 ## Docker:
 docker-build: ## Use the dockerfile to build the container
 	docker build --rm --tag $(BINARY_NAME) .
+
+docker-build-arm64: ## Build the container image for linux/arm64
+	docker buildx build --platform linux/arm64 --rm --tag $(BINARY_NAME):arm64 .
 
 docker-release: ## Release the container with tag latest and version
 	docker tag $(BINARY_NAME) $(DOCKER_REGISTRY)$(BINARY_NAME):latest

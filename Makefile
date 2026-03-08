@@ -4,7 +4,8 @@ GOVET=$(GOCMD) vet
 BINARY_NAME=go-webapp
 VERSION?=0.0.0
 SERVICE_PORT?=3030
-DOCKER_REGISTRY?= #if set it should finished by /
+DOCKER_REGISTRY?=docker.io/
+DOCKER_USERNAME?=
 EXPORT_RESULT?=false # for CI please set EXPORT_RESULT to true
 
 GREEN  := $(shell tput -Txterm setaf 2)
@@ -13,7 +14,7 @@ WHITE  := $(shell tput -Txterm setaf 7)
 CYAN   := $(shell tput -Txterm setaf 6)
 RESET  := $(shell tput -Txterm sgr0)
 
-.PHONY: all build run clean vendor watch test coverage vet lint lint-go lint-dockerfile lint-yaml docker-build docker-build-arm64 docker-release help
+.PHONY: all build run clean vendor watch test coverage vet lint lint-go lint-dockerfile lint-yaml docker-build docker-build-arm64 docker-login docker-release help
 
 all: help
 
@@ -86,12 +87,15 @@ docker-build: ## Use the dockerfile to build the container
 docker-build-arm64: ## Build the container image for linux/arm64
 	docker buildx build --platform linux/arm64 --rm --tag $(BINARY_NAME):arm64 .
 
+docker-login: ## Log in to Docker Hub
+	docker login $(DOCKER_REGISTRY)
+
 docker-release: ## Release the container with tag latest and version
-	docker tag $(BINARY_NAME) $(DOCKER_REGISTRY)$(BINARY_NAME):latest
-	docker tag $(BINARY_NAME) $(DOCKER_REGISTRY)$(BINARY_NAME):$(VERSION)
+	docker tag $(BINARY_NAME) $(DOCKER_REGISTRY)$(DOCKER_USERNAME)/$(BINARY_NAME):latest
+	docker tag $(BINARY_NAME) $(DOCKER_REGISTRY)$(DOCKER_USERNAME)/$(BINARY_NAME):$(VERSION)
 	# Push the docker images
-	docker push $(DOCKER_REGISTRY)$(BINARY_NAME):latest
-	docker push $(DOCKER_REGISTRY)$(BINARY_NAME):$(VERSION)
+	docker push $(DOCKER_REGISTRY)$(DOCKER_USERNAME)/$(BINARY_NAME):latest
+	docker push $(DOCKER_REGISTRY)$(DOCKER_USERNAME)/$(BINARY_NAME):$(VERSION)
 
 ## Help:
 help: ## Show this help.
